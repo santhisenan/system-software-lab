@@ -22,11 +22,10 @@ return a;
 }
 
 int main(int argc, char const *argv[]) {
-  int n, burst[10], sorted[10];
-  printf("Enter the number of processes (max 10)\n" );
-
-  scanf("%d \n" , &n);
-
+  int n, burst[10], sorted[10], waiting[10], turn_around[10];
+  float avg_waiting = 0, avg_turnaround = 0;
+  printf("Enter the number of processes (max 10)\n");
+  scanf("%d",&n);
   while(n > 10){
     printf("Enter a value less than 10...\n");
     printf("Enter the number of processes (max 10)\n" );
@@ -44,5 +43,40 @@ int main(int argc, char const *argv[]) {
     printf("%d\n", sorted[i] );
     /* code */
   }
+
+  waiting[0] = 0;
+  for (size_t i = 1; i < n; i++) {
+    /* code */
+    waiting[i] = waiting[i-1]+sorted[i-1];
+    // printf("%d \t" , waiting[i-1]);
+    avg_waiting +=waiting[i]/n;
+  }
+  // printf("The waiting time for processes are :\n");
+  // for (int i = 0; i < number; i++) {
+  //   /* code */
+  //   printf("process %d : %d\n", i+1, waiting[i] );
+  // }
+
+  // printf("\n" );
+  turn_around[0] = sorted[0];
+  avg_turnaround = sorted[0]/n;
+  for (int i = 1; i < n; i++) {
+    /* code */
+    turn_around[i] = waiting[i] + sorted[i];
+    // printf("%d\n", turn_around[i]);
+    avg_turnaround += turn_around[i]/n;
+  }
+
+
+  printf("Process \t Burst Time \t Waiting Time \t Turn Around Time\n" );
+  for (int i = 0; i < n; i++) {
+    /* code */
+    printf("%d \t\t %d \t\t %d \t\t %d \n", i+1, sorted[i], waiting[i] , turn_around[i] );
+  }
+
+  printf("Avg waiting time is %f \n", avg_waiting );
+  printf("The average turn around time is %f\n", avg_turnaround);
+
+
   return 0;
 }
