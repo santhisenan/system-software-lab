@@ -76,11 +76,15 @@ int isSafe(){
     finish[i] = 0;
   }
 
+  int safeSequence[5];
+  int count = 0;
   for (int j = 0; j < 3; j++) {
     for (int i = 0; i < 5; i++) {
       if((finish[i] == 0) && need[i][j] < work[j]){
         work[j] = work[j] + allocation[i][j];
         finish[i] = 1;
+        //printing the safe order
+        safeSequence[count++] = i;
       }
     }
   }
@@ -92,7 +96,10 @@ int isSafe(){
   }
 
   if (safe == 1) {
-    // printf("The system is in safe state.\n");
+    printf("Safe sequence ..\n");
+    for (int i = 0; i < 5; i++) {
+      printf("%d\t", safeSequence[i]);
+    }
     return 1;
   }
   else{
