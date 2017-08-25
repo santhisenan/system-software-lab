@@ -78,9 +78,10 @@ int isSafe(){
 
   for (int j = 0; j < 3; j++) {
     for (int i = 0; i < 5; i++) {
-      if((finish[i] == 0) && need[i][j] < work[j]){
+      if((finish[i] == 0) && need[i][j] <= work[j]){
         work[j] = work[j] + allocation[i][j];
         finish[i] = 1;
+        printf("%d\n",i );
       }
     }
   }
